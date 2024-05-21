@@ -1,6 +1,11 @@
 import unittest
 
-from inline_markdown import split_nodes_delimeter
+from inline_markdown import (
+    split_nodes_delimeter,
+    extract_markdown_images,
+    extract_markdown_links
+)
+
 from textnode import (
     TextNode,
     text_type_text,
@@ -44,6 +49,27 @@ class TextInlineMarkdow(unittest.TestCase):
             ],
             new_nodes
         )
+
+    def test_extract_markdown_images(self):
+        text = "This is text with an ![image](https://storage.googleapis.com/qvault-webapp-dynamic-assets/course_assets/zjjcJKZ.png) and ![another](https://storage.googleapis.com/qvault-webapp-dynamic-assets/course_assets/dfsdkjfd.png)"
+        res = extract_markdown_images(text)
+        self.assertListEqual(
+            [
+                ("image", "https://storage.googleapis.com/qvault-webapp-dynamic-assets/course_assets/zjjcJKZ.png"),
+                ("another", "https://storage.googleapis.com/qvault-webapp-dynamic-assets/course_assets/dfsdkjfd.png")
+            ],
+            res
+        )
+
+    def test_extract_markdown_links(self):
+        text = "This is text with a [link](https://www.example.com) and [another](https://www.example.com/another)"
+        res = extract_markdown_links(text)
+        self.assertListEqual(
+            [
+                ("link", "https://www.example.com"),
+                ("another", "https://www.example.com/another")
+            ],
+            res)
 
 
 if __name__ == "__main__":
