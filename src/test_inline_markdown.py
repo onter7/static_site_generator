@@ -3,7 +3,7 @@ from inline_markdown import *
 from textnode import *
 
 
-class TextInlineMarkdow(unittest.TestCase):
+class TestInlineMarkdown(unittest.TestCase):
     def test_split_nodes_delimeter_code(self):
         node = TextNode("This is text with a `code block` word", text_type_text)
         new_nodes = split_nodes_delimeter([node], '`', text_type_code)
