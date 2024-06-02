@@ -3,14 +3,14 @@ import shutil
 
 
 from copystatic import copy_content
-from getcontent import generate_page
+from getcontent import generate_pages_recursive
 
 
 dir_path_static = "./static"
 dir_path_public = "./public"
-path_content = "./content/index.md"
+dir_path_content = "./content"
 path_template = "./template.html"
-path_index = "./public/index.html"
+dest_dir_path = "./public"
 
 
 def main():
@@ -18,7 +18,7 @@ def main():
     if os.path.exists(dir_path_public):
         shutil.rmtree(dir_path_public)
     copy_content(dir_path_static, dir_path_public)
-    generate_page(path_content, path_template, path_index)
+    generate_pages_recursive(dir_path_content, path_template, dest_dir_path)
 
 
 main()
